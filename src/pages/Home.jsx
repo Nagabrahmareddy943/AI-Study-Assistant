@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { testBackend } from "../services/api";
+function Home() {useEffect(() => {
+  const checkBackend = async () => {
+    try {
+      const data = await testBackend();
+      console.log("Backend:", data.message);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-function Home() {
+  checkBackend();
+}, []);
   return (
     <div className="min-h-screen bg-gray-50">
 
