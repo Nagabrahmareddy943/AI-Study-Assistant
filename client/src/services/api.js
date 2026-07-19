@@ -36,3 +36,15 @@ export async function loginUser(userData) {
 
   return response.json();
 }
+export const uploadPDF = async (file) => {
+  const formData = new FormData();
+
+  formData.append("pdf", file);
+
+  const response = await fetch("http://localhost:5000/api/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  return response.json();
+};
