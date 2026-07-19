@@ -65,7 +65,21 @@ export const getUserCourses = async () => {
 
   return response.json();
 };
+export const chatWithCourse = async (courseId, question) => {
+  const response = await fetch(`${API_URL}/api/chat`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+    body: JSON.stringify({
+      courseId,
+      question,
+    }),
+  });
 
+  return response.json();
+};
 // Get one course by ID
 export const getCourseById = async (id) => {
   const response = await fetch(`${API_URL}/api/courses/${id}`, {
