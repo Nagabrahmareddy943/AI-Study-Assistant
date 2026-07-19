@@ -51,3 +51,13 @@ export const uploadPDF = async (file) => {
 
   return response.json();
 };
+export const getUserCourses = async () => {
+  const response = await fetch("http://localhost:5000/api/courses", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  return response.json();
+};
