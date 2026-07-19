@@ -5,11 +5,13 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const courseRoutes = require("./routes/courseRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 const app = express();
 connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use("/api/chat", chatRoutes);
 
 // Routes
 app.use("/api/auth", authRoutes);
