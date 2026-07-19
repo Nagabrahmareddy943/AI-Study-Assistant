@@ -1,6 +1,7 @@
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const ai = require("../config/gemini");
+const Course = require("../models/Course");
 
 const uploadPDF = async (req, res) => {
   try {
@@ -60,14 +61,26 @@ ${pdfData.text.substring(0,12000)}
 `,
     });
 
-    console.log("===== STEP 5 =====");
-    console.log(response.text);
+console.log("===== STEP 5 =====");
+console.log(response.text);
 
-    res.status(200).json({
-      success: true,
-      message: "PDF uploaded and summarized successfully",
-      summary: response.text,
-    });
+// Save course in MongoDB
+const savedCourse = await Course.create({
+  user: req.user.id,
+  title: req.file.originalname.replace(".pdf", ""),
+  content: response.text,
+  fileName: req.file.originalname,
+});
+
+console.log("===== COURSE SAVED =====");
+console.log(savedCourse);
+
+res.status(200).json({
+  success: true,
+  message: "PDF uploaded and course saved successfully",
+  summary: response.text,
+  course: savedCourse,
+});
 
   } catch (error) {
     console.error("========== GEMINI ERROR ==========");

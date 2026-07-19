@@ -7,21 +7,18 @@ const courseSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
     title: {
       type: String,
       required: true,
     },
-
     content: {
       type: String,
       required: true,
     },
-
     fileName: {
       type: String,
+      required: true,
     },
-
   },
   {
     timestamps: true,
