@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getUserCourses } from "../services/api";
 
 function Dashboard() {
+  const navigate = useNavigate();
+
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [courses, setCourses] = useState([]);
@@ -16,7 +19,7 @@ function Dashboard() {
           setCourses(data.courses);
         }
       } catch (error) {
-        console.error("Error fetching courses:", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -29,7 +32,7 @@ function Dashboard() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
 
-        {/* Welcome Section */}
+        {/* Welcome */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <h1 className="text-4xl font-bold text-blue-600">
             Welcome, {user?.name || "Student"} 👋
@@ -79,29 +82,32 @@ function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
 
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-800">
+
+            <h2 className="text-2xl font-bold">
               🚀 Generate New Course
             </h2>
 
             <p className="text-gray-500 mt-3">
-              Upload your study material and let AI create a complete course.
+              Upload a PDF and generate an AI-powered course.
             </p>
 
             <button
-              onClick={() => (window.location.href = "/upload")}
-              className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+              onClick={() => navigate("/upload")}
+              className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700"
             >
               Upload PDF
             </button>
+
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-800">
+
+            <h2 className="text-2xl font-bold">
               🤖 AI Assistant
             </h2>
 
             <p className="text-gray-500 mt-3">
-              Ask questions and get explanations from your study materials.
+              Chat with your study material.
             </p>
 
             <button
@@ -110,6 +116,7 @@ function Dashboard() {
             >
               Coming Soon
             </button>
+
           </div>
 
         </div>
@@ -117,51 +124,53 @@ function Dashboard() {
         {/* Recent Courses */}
         <div className="bg-white rounded-2xl shadow-lg mt-8 p-8">
 
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
+          <h2 className="text-2xl font-bold mb-6">
             📚 Recent Courses
           </h2>
 
           {loading ? (
-            <p className="text-gray-500">
-              Loading courses...
-            </p>
+            <p>Loading...</p>
           ) : courses.length === 0 ? (
             <div className="border rounded-xl p-6">
-              <h3 className="text-xl font-semibold">
+              <h3 className="text-xl font-bold">
                 No Courses Yet
               </h3>
 
               <p className="text-gray-500 mt-2">
-                Upload your first PDF to generate an AI-powered course.
+                Upload your first PDF.
               </p>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-5">
 
               {courses.map((course) => (
+
                 <div
                   key={course._id}
-                  className="border rounded-xl p-6 shadow-sm"
+                  className="border rounded-xl p-6 bg-gray-50"
                 >
-                  <h3 className="text-xl font-bold text-blue-600">
+
+                  <h3 className="text-2xl font-bold text-blue-600">
                     {course.title}
                   </h3>
 
                   <p className="text-gray-500 mt-2">
-                    Uploaded File: {course.fileName}
+                    {course.fileName}
                   </p>
 
-                  <p className="text-gray-400 text-sm mt-2">
-                    Generated on{" "}
-                    {new Date(course.createdAt).toLocaleDateString()}
+                  <p className="text-sm text-gray-400 mt-2">
+                    {new Date(course.createdAt).toLocaleString()}
                   </p>
 
                   <button
-                    className="mt-4 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+                    onClick={() => navigate(`/course/${course._id}`)}
+                    className="mt-5 bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
                   >
                     View Course
                   </button>
+
                 </div>
+
               ))}
 
             </div>

@@ -1,12 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import Upload from "./pages/Upload";
+
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-
-import Navbar from "./components/Navbar";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Upload from "./pages/Upload";
+import CourseDetails from "./pages/CourseDetails";
 
 function App() {
   return (
@@ -28,14 +30,24 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
-  path="/upload"
-  element={
-    <ProtectedRoute>
-      <Upload />
-    </ProtectedRoute>
-  }
-/>
+          path="/upload"
+          element={
+            <ProtectedRoute>
+              <Upload />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/course/:id"
+          element={
+            <ProtectedRoute>
+              <CourseDetails />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );

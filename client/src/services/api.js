@@ -36,23 +36,39 @@ export async function loginUser(userData) {
 
   return response.json();
 }
+
+// Upload PDF
 export const uploadPDF = async (file) => {
   const formData = new FormData();
 
   formData.append("pdf", file);
 
-  const response = await fetch("http://localhost:5000/api/upload", {
+  const response = await fetch(`${API_URL}/api/upload`, {
     method: "POST",
     body: formData,
     headers: {
-  Authorization: `Bearer ${localStorage.getItem("token")}`
-}
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
 
   return response.json();
 };
+
+// Get all courses
 export const getUserCourses = async () => {
-  const response = await fetch("http://localhost:5000/api/courses", {
+  const response = await fetch(`${API_URL}/api/courses`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+
+  return response.json();
+};
+
+// Get one course by ID
+export const getCourseById = async (id) => {
+  const response = await fetch(`${API_URL}/api/courses/${id}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
