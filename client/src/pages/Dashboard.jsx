@@ -1,26 +1,135 @@
+
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-xl p-8 w-full max-w-lg text-center">
-        <h1 className="text-3xl font-bold text-blue-600">
-          Dashboard
-        </h1>
+    <>
+      
 
-        <p className="mt-4 text-gray-700">
-          Welcome back,
-        </p>
+      <div className="min-h-screen bg-gray-100 p-8">
 
-        <h2 className="text-2xl font-semibold mt-2">
-          {user?.name}
-        </h2>
+        {/* Welcome Section */}
+        <div className="max-w-7xl mx-auto">
 
-        <p className="text-gray-500 mt-2">
-          {user?.email}
-        </p>
+          <div className="bg-white rounded-2xl shadow-lg p-8">
+
+            <h1 className="text-4xl font-bold text-blue-600">
+              Welcome, {user?.name || "Student"} 👋
+            </h1>
+
+            <p className="text-gray-500 mt-2">
+              Manage your AI-generated courses and continue learning.
+            </p>
+
+          </div>
+
+          {/* Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-lg text-gray-500">
+                📚 Total Courses
+              </h2>
+
+              <p className="text-4xl font-bold text-blue-600 mt-3">
+                0
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-lg text-gray-500">
+                📄 PDFs Uploaded
+              </h2>
+
+              <p className="text-4xl font-bold text-green-600 mt-3">
+                0
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6">
+              <h2 className="text-lg text-gray-500">
+                🤖 AI Courses Generated
+              </h2>
+
+              <p className="text-4xl font-bold text-purple-600 mt-3">
+                0
+              </p>
+            </div>
+
+          </div>
+{/* Quick Actions */}
+
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+
+  {/* Generate Course */}
+
+  <div className="bg-white rounded-2xl shadow-lg p-8">
+
+    <h2 className="text-2xl font-bold text-gray-800">
+      🚀 Generate New Course
+    </h2>
+
+    <p className="text-gray-500 mt-3">
+      Upload your study material and let AI create a complete course.
+    </p>
+
+    <button
+      onClick={() => window.location.href="/upload"}
+      className="mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+    >
+      Upload PDF
+    </button>
+
+  </div>
+
+
+  {/* AI Assistant */}
+
+  <div className="bg-white rounded-2xl shadow-lg p-8">
+
+    <h2 className="text-2xl font-bold text-gray-800">
+      🤖 AI Assistant
+    </h2>
+
+    <p className="text-gray-500 mt-3">
+      Ask questions and get explanations from your study materials.
+    </p>
+
+    <button
+      disabled
+      className="mt-6 bg-gray-400 text-white px-6 py-3 rounded-lg cursor-not-allowed"
+    >
+      Coming Soon
+    </button>
+
+  </div>
+
+</div>
+          {/* Recent Courses */}
+          <div className="bg-white rounded-2xl shadow-lg mt-8 p-8">
+
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
+              📚 Recent Courses
+            </h2>
+
+            <div className="border rounded-xl p-6">
+
+              <h3 className="text-xl font-semibold">
+                No Courses Yet
+              </h3>
+
+              <p className="text-gray-500 mt-2">
+                Upload your first PDF to generate an AI-powered course.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
-    </div>
+    </>
   );
 }
 

@@ -27,9 +27,37 @@ const uploadPDF = async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-flash-latest",
-      contents: `Summarize the following study material in simple language:
+      contents: `
+You are an expert instructional designer.
 
-${pdfData.text}`,
+Convert the following PDF into a complete online course.
+
+Return your response using the following sections:
+
+# Course Title
+
+# Course Description
+
+# Learning Objectives
+
+# Modules
+
+For each module include:
+- Module Name
+- Topics Covered
+- Short Explanation
+
+# Key Takeaways
+
+# Practice Quiz
+
+Create 5 multiple-choice questions.
+Provide the correct answer after each question.
+
+Study Material:
+
+${pdfData.text.substring(0,12000)}
+`,
     });
 
     console.log("===== STEP 5 =====");

@@ -44,6 +44,9 @@ export const uploadPDF = async (file) => {
   const response = await fetch("http://localhost:5000/api/upload", {
     method: "POST",
     body: formData,
+    headers: {
+  Authorization: `Bearer ${localStorage.getItem("token")}`
+}
   });
 
   return response.json();

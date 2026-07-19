@@ -4,6 +4,15 @@ const router = express.Router();
 const upload = require("../config/multer");
 const { uploadPDF } = require("../controllers/uploadController");
 
-router.post("/", upload.single("pdf"), uploadPDF);
+const authMiddleware = require("../middleware/authMiddleware");
+
+
+router.post(
+  "/",
+  authMiddleware,
+  upload.single("pdf"),
+  uploadPDF
+);
+
 
 module.exports = router;
